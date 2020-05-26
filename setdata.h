@@ -1,5 +1,5 @@
-#ifndef M_TAG
-#define M_TAG
+#ifndef M_SETDATA	
+#define M_SETDATA
 
 #include "tagtype.h"
 

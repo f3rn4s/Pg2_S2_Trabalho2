@@ -15,14 +15,3 @@ dinamicamente e retorna o seu endereço. O parâmetro resPtr,
 1, se falhar o acesso ao ficheiro, ou -2, se a faixa de áudio 
 não tiver informação de tag.*/
 #endif
-
-/*typedef struct{
-char title[MAX_TIT + 1];
-char artist[MAX_ART + 1];
-char album[MAX_ALB + 1];
-short year;
-char comment[MAX_COM + 1];
-char track;
-char genre;
-char *fileName; // Aponta string com o nome do ficheiro, em alojamento dinâmico.
-} MP3Tag_t;*/
