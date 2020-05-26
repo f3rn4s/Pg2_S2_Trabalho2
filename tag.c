@@ -42,7 +42,6 @@ MP3Tag_t* tagRead ( char *fileName, int *resPtr ){
 	}
 
 	//fazer rewind ou fset ou fseek 128 bytes para tras
-	//MP3Tag_t tag;
 	char tag[4] = {0};
 	char year[4];
 	/*char title[31];
@@ -54,7 +53,8 @@ MP3Tag_t* tagRead ( char *fileName, int *resPtr ){
 
 	//coloca o ponteiro no inicio dos ultimos 128 bytes do ficheiro
 	fseek(f, -128L, SEEK_END);
-	
+
+	//le os primeiros 3 bytes
 	fread(&tag, sizeof(char),3,f);
 	/*fread(&title, sizeof(char),30,f);
 	fread(&artist, sizeof(char),30,f);
@@ -77,26 +77,30 @@ MP3Tag_t* tagRead ( char *fileName, int *resPtr ){
 	tag[4]='\0';
 	printf("tag:%s\n", tag);*/
 
+	printf("tag:%s\n", tag);
+	tag[4]='\0';
+	printf("tag:%s\n", tag);
 	//verificar se existe a palavra "TAG"
 	if(strcmp(tag,"TAG")){//Se nao *resPtr = -2 e return NULL 
-		printf("TRUE\n");
+		printf("TAG nao encontrado\n");
 		*resPtr = (-2);
 		return NULL;
 	}
 	
-	printf("HereEnd\n");
 	//Se sim alocar memoria para preencher dados e *resPtr = 0
-
 	MP3Tag_t* mp3tag = (MP3Tag_t*)calloc(1,sizeof(MP3Tag_t));
 
-	if(!mp3tag)
+	if(!mp3tag){
+		*resPtr = 1;
 		return NULL;
+	}
 
 	fread(mp3tag->title,sizeof(char),30,f);
 	fread(mp3tag->artist,sizeof(char),30,f);
 	fread(mp3tag->album,sizeof(char),30,f);
 
 	fread(&year,sizeof(char),4,f);
+	//convert de char para shot
 	short yearS = atoi(year);
 	mp3tag->year = yearS;
 
@@ -107,19 +111,31 @@ MP3Tag_t* tagRead ( char *fileName, int *resPtr ){
 	fread(&mp3tag->genre,sizeof(char),1,f);
 	mp3tag->fileName = fileName;
 
+	printf("\n---------BEFORE-------------\n\n");
+
+	printf("Title:%s\n",mp3tag->title );
+	printf("artist:%s\n",mp3tag->artist );
+	printf("album:%s\n",mp3tag->album );
+	printf("year:%d\n",mp3tag->year );
+	printf("comment:%s\n",mp3tag->comment);
+	printf("genre%c\n",mp3tag->genre);
+	printf("fileName:%s\n",mp3tag->fileName);
+
+
 	//limpa as strings de espacos e tabs
 	unifyName(mp3tag->title);
 	unifyName(mp3tag->artist);
 	unifyName(mp3tag->album);
 	unifyName(mp3tag->comment);
 
-	printf("%s\n",mp3tag->title );
-	printf("%s\n",mp3tag->artist );
-	printf("%s\n",mp3tag->album );
-	printf("%d\n",mp3tag->year );
-	printf("%s\n",mp3tag->comment);
-	printf("%c\n",mp3tag->genre);
-	printf("%s\n",mp3tag->fileName);
+	printf("\n---------AFTER-------------\n\n");
+	printf("Title:%s\n",mp3tag->title );
+	printf("artist:%s\n",mp3tag->artist );
+	printf("album:%s\n",mp3tag->album );
+	printf("year:%d\n",mp3tag->year );
+	printf("comment:%s\n",mp3tag->comment);
+	printf("genre%c\n",mp3tag->genre);
+	printf("fileName:%s\n",mp3tag->fileName);
 
 	return NULL;
 }

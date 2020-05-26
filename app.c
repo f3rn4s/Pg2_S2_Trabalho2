@@ -9,7 +9,8 @@ int main(int argc, char* argv[])
 {
 	int* p = (int*)calloc(1,sizeof(int));
 
-	char* fileName = "samplefilescopy/samples/sample0001.mp3";
+	//char* fileName = "samplefilescopy/samples/sample0001.mp3";
+	char* fileName = argv[1];
 
 	tagRead(fileName, p);
 
