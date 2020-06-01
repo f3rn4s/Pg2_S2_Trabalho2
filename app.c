@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "listfiles.h"
-#include "tag.h"
-#include "setdata.h"
 
 
 int main(int argc, char* argv[])
@@ -11,34 +9,34 @@ int main(int argc, char* argv[])
 	int* p = (int*)calloc(1,sizeof(int));
 
 	//char* fileName = "samplefilescopy/samples/sample0001.mp3";
-	char* fileName = argv[1];
+	//char* fileName2 = "samplefilescopy/samples/sample0002.mp3";
+	//char* fileName = argv[1];
+	//MP3Tag_t* var;
+	//MP3Tag_t* var2;
 
-	tagRead(fileName, p);
+	//var = tagRead(fileName, p);
+	//var2 = tagRead(fileName2, p);
 
-	char * aartist = "artist";
-	char * bartist = "artist";
-	char * aalbum  = "albuma";
-	char * balbum  = "album";
-	char * atitle  = "title";
-	char * btitle  = "title";
-	int cmp = 0; 
+	//printf("FilenameMain:%s\n",var->fileName);
 
-	if(!(cmp = strcmp(aartist, bartist))){
-		if(!(cmp = strcmp(aalbum, balbum))){
-			if(!(cmp = strcmp(atitle, btitle))){
-				printf("here1\n");
-			}
-			else{
-				printf("here2\n");
-			}
-		}else{
-			printf("here3\n");
-		}
-	}else{
-		printf("here4\n");
+	TagSet_t* setOne;
+	setOne = setCreate();
+
+	int i= 0;
+	while(i<12){
+		printf("i=%d\n",i );
+		var = tagRead(fileName, p);
+		setAdd(setOne, var);
+		var2 = tagRead(fileName2, p);
+		setAdd(setOne, var2);
+		printf("FilenameMain2:%s\n",setOne->data[0]->fileName);
+		printf("FilenameMain2:%s\n",setOne->data[1]->fileName);
+
+		i++;
 	}
- 	
- 	printf("%d\n",cmp );
+
+	printf("FilenameMain2:%s\n",setOne->data[0]->fileName);
+	printf("FilenameMain2:%s\n",setOne->data[1]->fileName);
 
 	return 0;
 }

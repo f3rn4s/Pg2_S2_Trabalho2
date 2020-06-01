@@ -79,31 +79,11 @@ MP3Tag_t* tagRead ( char *fileName, int *resPtr ){
 
 	mp3tag->fileName = fileName;
 
-	printf("\n---------BEFORE-------------\n\n");
-
-	printf("Title:%s\n",mp3tag->title );
-	printf("artist:%s\n",mp3tag->artist );
-	printf("album:%s\n",mp3tag->album );
-	printf("year:%d\n",mp3tag->year );
-	printf("comment:%s\n",mp3tag->comment);
-	printf("genre:%d\n",mp3tag->genre);
-	printf("fileName:%s\n",mp3tag->fileName);
-
-
 	//limpa as strings de espacos e tabs
 	unifyName(mp3tag->title);
 	unifyName(mp3tag->artist);
 	unifyName(mp3tag->album);
 	unifyName(mp3tag->comment);
-
-	printf("\n---------AFTER-------------\n\n");
-	printf("Title:%s\n",mp3tag->title );
-	printf("artist:%s\n",mp3tag->artist );
-	printf("album:%s\n",mp3tag->album );
-	printf("year:%d\n",mp3tag->year );
-	printf("comment:%s\n",mp3tag->comment);
-	printf("genre:%d\n",mp3tag->genre);
-	printf("fileName:%s\n",mp3tag->fileName);
 
 	*resPtr = 0;
 	return mp3tag;
